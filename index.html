@@ -1907,12 +1907,19 @@ function updateArc(){
     else if(ratio < -1.9) ratio = -1.9;
     const abs = ratio < 0 ? -ratio : ratio;
 
-    // 远处卡片直接跳过，省掉不必要的样式写入
+    // 远处卡片淡出隐藏。
+    // 注意：不能用 visibility:hidden —— 那会让浏览器跳过图片加载，
+    // 导致卡片永久空白（本地有缓存时看不出来，线上必现）。
     if(abs > 1.85){
-      if(card.style.visibility !== 'hidden') card.style.visibility = 'hidden';
+      if(card.style.opacity !== '0'){
+        card.style.opacity = '0';
+        card.style.pointerEvents = 'none';
+      }
       continue;
     }
-    if(card.style.visibility === 'hidden') card.style.visibility = '';
+    if(card.style.opacity === '0'){
+      card.style.pointerEvents = '';
+    }
 
     // 弧形：越靠边倾斜越大、下沉越多、缩得越小
     const rot = ratio * MAX_TILT;
