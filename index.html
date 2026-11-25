@@ -1786,7 +1786,7 @@ function buildArc(){
       card.innerHTML = `
         <span class="pin" aria-hidden="true">${String(i+1).padStart(2,'0')}</span>
         <div class="shot">
-          <img src="images/${w.file}" alt="${w.title} — ${w.cat}" loading="${g===1?'eager':'lazy'}" decoding="async">
+          <img src="images/${w.file}" alt="${w.title} — ${w.cat}" loading="eager" decoding="sync" fetchpriority="high">
         </div>
         <div class="cap" aria-hidden="true">
           <div class="k">${w.cat}</div>
